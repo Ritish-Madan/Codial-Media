@@ -1,0 +1,52 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
+=======
+>>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/headerStyle.css">
+    <link rel="stylesheet" href="/css/footerStyle.css">
+    <%- style %>
+    <title>Document</title>
+</head>
+<body>
+    <%- include('header'); -%>
+
+    <div id="body-main">
+        <%- body -%>
+    </div>
+
+    <%- include('footer'); -%>
+
+    <%- script %>
+<<<<<<< HEAD
+
+    <script>
+        <% if(flash.success && flash.success.length > 0){ %>
+            new Noty({
+                theme: 'relax',
+                text: '<%= flash.success %>',
+                type: 'success',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        <% } %>
+
+        <% if(flash.error && flash.error.length > 0){ %>
+            new Noty({
+                theme: 'relax',
+                text: '<%= flash.error %>',
+                type: 'error',
+                layout: 'topRight',
+                timeout: 1500
+            }).show();
+        <% } %>
+    </script>
+=======
+>>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
+</body>
+</html>

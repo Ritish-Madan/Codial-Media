@@ -1,0 +1,15 @@
+<div class="main-header">
+    <span>
+        <h2 class="headline">CODIAL</h2>
+    </span>
+    <div class="header-links">
+        <% if(locals.user){ %>
+            <span id="signedinuser"> <%= user.name %> </span>
+                <a href="/user/logout">Logout</a>
+        <% } else{ %>
+                <a href="/registration">Sign Up</a>
+                <a href="/sign-in">Sign In</a>
+        <% } %>
+    </div>
+    
+</div>

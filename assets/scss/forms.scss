@@ -1,0 +1,15 @@
+form{
+    width: 100%;
+    p{
+        text-align: center;
+    }
+    input{
+        display: block;
+        padding: 6px;
+        margin: auto;
+        margin-top: 4px;
+    }   
+    .submit-button{
+        cursor: pointer;
+    }
+}
