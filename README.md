@@ -15,7 +15,6 @@ In this project, we have connected the MongoDB with mongoose, for easy operation
 **Easy to use server command**
 
 We have used the **nodemon** in the project for easy editings and restart of server. The nodemon has already been linked to the **index.js** to run the server easily with a single command. just type `npm run server` in the terminal and the server will be started. Still if you wish not to use the nodemon. You can also start the server with `node ./index.js` and you will be good to go. Each time you make the changes in the server, or JS file you will need to restart the server if you use `node ./index.js`. You can automate the restart with the use of nodemon by using `npm run server`.
-<<<<<<< HEAD
 
 
 **Features present as of now :-**
@@ -30,5 +29,3 @@ We have used the **nodemon** in the project for easy editings and restart of ser
 
 
 **Note:- The styles have not been added in this version yet. Will be updating the same with cool styles and animations super soon**
-=======
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
