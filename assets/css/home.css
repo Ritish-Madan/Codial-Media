@@ -1,5 +1,6 @@
 #home-container {
-  display: flex; }
+  display: flex;
+  min-height: calc(100vh - 108px - 48px); }
   #home-container #feed-posts {
     width: 70%;
     padding: 10px; }
