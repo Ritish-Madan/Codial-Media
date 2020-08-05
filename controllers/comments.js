@@ -1,8 +1,6 @@
 const Comment = require('../schema/comments');
 const Post = require('../schema/posts');
 
-
-<<<<<<< HEAD
 module.exports.create = async function(req, res){
     try{
         let post = await Post.findById(req.body.post);
@@ -48,7 +46,6 @@ module.exports.destroy = async function(req, res){
         return;
     }
 };
-=======
 module.exports.create = function(req, res){
     Post.findById(req.body.post, function(err, post){
         if(err){
@@ -75,4 +72,3 @@ module.exports.create = function(req, res){
         }
     });
 }
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4

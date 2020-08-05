@@ -1,12 +1,8 @@
 // Importing the Posts Schema in order to fetch out the posts from the DB
 const Post = require('../schema/posts');
-<<<<<<< HEAD
 // Importing users to search
 const Users = require('../schema/userSchema');
-const User = require('../schema/userSchema');
-=======
 
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
 // Opening homepage
 module.exports.home = function(req, res){
     Post.find({})
@@ -14,11 +10,8 @@ module.exports.home = function(req, res){
     .populate({
         path: 'comments',
         populate:{
-<<<<<<< HEAD
             path: 'user',
-=======
             path: 'user'
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
         }
     })
     .exec(function(err, posts){
@@ -26,7 +19,6 @@ module.exports.home = function(req, res){
             console.log("Error occured while finding the posts");
             return;
         }
-<<<<<<< HEAD
         Users.find({}, function(err, users){
             if(err){console.log('Error Occured while searching friends'); return;}
 
@@ -35,11 +27,6 @@ module.exports.home = function(req, res){
                 all_users: users
             });
         })
-=======
-        return res.render('index',{
-            posts: posts
-        });
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
     })
 };
 

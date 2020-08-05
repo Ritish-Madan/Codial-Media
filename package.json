@@ -10,10 +10,7 @@
   "author": "Ritish",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "connect-flash": "^0.1.1",
-=======
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.5",
     "ejs": "^3.1.3",

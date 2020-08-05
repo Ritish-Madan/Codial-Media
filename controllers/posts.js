@@ -1,9 +1,6 @@
 // Importing Post Schema
 const Post = require('../schema/posts');
-<<<<<<< HEAD
 const Comment = require('../schema/comments')
-=======
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
 
 module.exports.create = function(req, res){
     Post.create({
@@ -17,7 +14,6 @@ module.exports.create = function(req, res){
         }
         return res.redirect('back');
     });
-<<<<<<< HEAD
 };
 
 module.exports.destroy = function(req, res){
@@ -45,6 +41,3 @@ module.exports.destroy = function(req, res){
 
     });
 };
-=======
-}
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4

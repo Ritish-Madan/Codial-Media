@@ -10,7 +10,6 @@ app.set('view engine', 'ejs');
 app.set('views', './views');
 app.set("layout extractScripts", true)
 app.set("layout extractStyles", true)
-
 // Setting up layouts
 const layout = require('express-ejs-layouts');
 
@@ -30,13 +29,10 @@ const MongoStore = require('connect-mongo')(session);
 // Importing Node-SASS Middleware into Node.JS
 const sassMiddleware = require('node-sass-middleware')
 
-<<<<<<< HEAD
 // Connecting flash
 const flash = require('connect-flash');
 const customMware = require('./config/Middlewares');
 
-=======
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
 // Middlewares
  app.use(sassMiddleware({
     src: './assets/scss',
@@ -68,15 +64,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
-
-<<<<<<< HEAD
 app.use(flash());
 app.use(customMware.setFlash);
-
-=======
->>>>>>> 759e38268171e3d51d37d664cc99413c3c210cf4
 app.use('/',require('./routes/index'));
-
 
 app.listen(port, function(err){
     if(err){
