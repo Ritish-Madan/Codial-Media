@@ -6,6 +6,7 @@ const Users = require('../schema/userSchema');
 // Opening homepage
 module.exports.home = function(req, res){
     Post.find({})
+    .sort('-createdAt')
     .populate('user')
     .populate({
         path: 'comments',

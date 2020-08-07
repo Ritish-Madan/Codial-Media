@@ -26,25 +26,30 @@ module.exports.create = async function(req, res){
     }
 }
 
-module.exports.destroy = function(req, res){
-    Post.findById(req.params.id, function(err, post){
-        if(err){
-            console.log('Eror while finding the post');
-            return res.redirect('back');
-        }
-
+module.exports.destroy = async function(req, res){
+    try{
+        let post = await Post.findById(req.params.id);
         if(post.user == req.user.id){
             post.remove();
-            Comment.deleteMany({post: post.id}, function(err){
-                if(err){return console.log('Error while delting the comments.');}
+            await Comment.deleteMany({post: post.id});
 
-                return res.redirect('back')
-            });
+            if(req.xhr){
+                return res.status(200).json({
+                    data:{
+                        post_id: req.params.id
+                    },
+                    message: 'Post Deleted!'
+                })
+            }
+            req.flash('success', 'Post Deleted');
+            return res.redirect('back');
         }else{
             // Testing bug above
             console.log('Authorisation Denied')
             return res.redirect('back');
         };
+    }catch(err){
+        console.log('Error Deleting the post', err);
+    }
 
-    });
-};
+    }

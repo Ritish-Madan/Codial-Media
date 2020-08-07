@@ -9,8 +9,8 @@
                 data: postForm.serialize(),
                 success: function(data){
                     let newPost = showPostDom(data.data.post);
-                    console.log(newPost);
                     $('#show-posts>ul').prepend(newPost)
+                    destroyPost($(' .delete-post-button', newPost));// Delete the post created using ajax
                 },error: function(err){
                     console.log("Error occured while sending data", err);
                 }
@@ -44,4 +44,33 @@
     </li>`)
     }
     createPost();
-}
+
+    /* The below function deletes the posts using AJAX which are already present in the database.
+    but for the new posts created using AJAX won't be included in the below function because the 
+    browser is still not aware of that post, so we had explicitly passed those posts through destroyPost
+    function to add those function to newly created posts using AJAX */
+
+    function destroy(){
+        let allLinks = $('.delete-post-button');
+        for(let i of allLinks){
+            destroyPost(i);
+        }
+    }
+
+    let destroyPost = function(deleteLink){
+        $(deleteLink).click(function(e){
+            e.preventDefault();
+        
+            $.ajax({
+                type: 'get',
+                url: $(deleteLink).prop('href'),
+                success:function(data){
+                    $(`#post-${data.data.post_id}`).remove();
+                }, error: function(err){
+                    console.log("Error Occured while deleting the post", err);
+                }
+            })
+        })
+    }
+    destroy();
+};
