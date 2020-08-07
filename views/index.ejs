@@ -13,12 +13,12 @@
     <% if(locals.user){ %>
         <section id="feed-posts">
             <h4>Posts</h4>
-            <form action="/posts/create/" method="POST">
+            <form id="newPostForm" action="/posts/create" method="POST">
                 <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
                 <input type="submit" value="Post">
             </form>
             <div id="show-posts">
-                <h3>Posts Published</h3>
+                <!-- <h3>Posts Published</h3> -->
                 <ul>
                     <% for(post of posts){ %>
                         <!-- Posts published on the wall -->
@@ -41,4 +41,4 @@
             </div>
         </section>
     <% } %>    
-<script src="/js/bodyScript.js"></script>
+<script src="/js/homeposts.js"></script>

@@ -2,19 +2,29 @@
 const Post = require('../schema/posts');
 const Comment = require('../schema/comments')
 
-module.exports.create = function(req, res){
-    Post.create({
-        content: req.body.content,
-        user: req.user._id
-    },
-    function(err){
-        if(err){
-            console.log(err);
-            return;
+module.exports.create = async function(req, res){
+    try{
+        let post = await Post.create({
+            content: req.body.content,
+            user: req.user._id
+        });
+
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post: post
+                }
+            })
         }
+
+        req.flash('success', 'Post Published');
         return res.redirect('back');
-    });
-};
+    }catch(err){
+        req.flash('error', 'Error Occured, Please Contact Support!');
+        console.log('Error Occured while creating the post', err);
+        return res.redirect('back');
+    }
+}
 
 module.exports.destroy = function(req, res){
     Post.findById(req.params.id, function(err, post){
@@ -31,9 +41,6 @@ module.exports.destroy = function(req, res){
                 return res.redirect('back')
             });
         }else{
-            console.log(post.user);
-            console.log(req.user.id);
-            console.log(post.user == req.user.id);
             // Testing bug above
             console.log('Authorisation Denied')
             return res.redirect('back');
