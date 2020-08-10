@@ -17,19 +17,33 @@ module.exports.profile = function(req, res){
     })
 }
 
-module.exports.update = function(req, res){
+module.exports.update = async function(req, res){
     if(req.params.id == req.user.id){
-        User.findByIdAndUpdate(req.user.id, req.body, function(err, user){
+        try{
+            let user = await User.findById(req.params.id);
+            User.uploadedAvatar(req, res, function(err){
             if(err){
-                console.log('Error in updating the user');
-                return res.redirect('back');
+                return console.log('***Multer Error****');
             }
-            return res.redirect('back')
+            user.name = req.body.name;
+            user.email = req.body.email;
+
+            if(req.file){
+                user.avatar = User.avatarPath + '/' + req.file.filename;
+            }
+            req.flash('success', "Profile Updated")
+            user.save();
+            return res.redirect('back');
         })
+        }catch(err){
+            console.log('error occured!',err);
+            return res.redirect('back');
+        }
     }else{
         console.log('Not Authorized!!!');
         return res.redirect('back');
-    }};
+    }
+};
 
 module.exports.createUser = function(req, res){
     if(req.body.password != req.body.confirm){

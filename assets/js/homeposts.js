@@ -1,4 +1,24 @@
+function nodySuccess(data){
+    new Noty({
+        theme: 'relax',
+        text:  data.message,
+        type: 'success',
+        layout: 'topRight',
+        timeout: 1500
+    }).show();
+}
+function nodyError(data){
+    new Noty({
+        theme: 'relax',
+        text: data.ErrorMessage,
+        type: 'error',
+        layout: 'topRight',
+        timeout: 1500
+    }).show();
+}
 {
+    let postForm = $('#newPostForm');
+    console.log();
     function createPost(){
         let postForm = $('#newPostForm');
         postForm.submit(function(event){
@@ -8,9 +28,13 @@
                 url: '/posts/create',
                 data: postForm.serialize(),
                 success: function(data){
+                    console.log(data.message);
                     let newPost = showPostDom(data.data.post);
                     $('#show-posts>ul').prepend(newPost)
-                    destroyPost($(' .delete-post-button', newPost));// Delete the post created using ajax
+                    postForm[0][0].value = ''
+                    // Including noty
+                    nodySuccess(data);
+                    destroyPost($(' .delete-post-button', newPost));//Delete the post created using ajax
                 },error: function(err){
                     console.log("Error occured while sending data", err);
                 }
@@ -66,6 +90,7 @@
                 url: $(deleteLink).prop('href'),
                 success:function(data){
                     $(`#post-${data.data.post_id}`).remove();
+                    nodySuccess(data);
                 }, error: function(err){
                     console.log("Error Occured while deleting the post", err);
                 }

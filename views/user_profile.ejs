@@ -1,8 +1,10 @@
 <h1>Profile Page</h1>
 <% if(locals.user.id == user_pro.id){%> 
-    <form action="/user/update/<%= user_pro.id %>" method="POST">
+    <img src="<%= user.avatar %>" alt="<%= locals.user.name %>" width="100px">
+    <form action="/user/update/<%= user_pro.id %>" method="POST" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="Enter Name" value="<%= user_pro.name %>" required>
         <input type="email" name="email" placeholder="Enter Email" value="<%= user_pro.email %>" required>
+        <input type="file" name="avatar">
         <input type="submit" value="Update">
     </form>
 
