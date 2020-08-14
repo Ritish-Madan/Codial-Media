@@ -13,12 +13,13 @@ module.exports.create = async function(req, res){
             post.comments.push(comment);
             post.save(); // We need to tell the DB to save the update we did. Else won't be saved.
 
+            let populatedComment = await Comment.findById(comment._id).populate('user');
             if(req.xhr){
                 return res.status(200).json({
                     data:{
-                        comment: comment
+                        comment: populatedComment
                     },
-                    message: 'Comment Created Sucessfully!'
+                    message: 'Comment Created'
                 })
             }
             

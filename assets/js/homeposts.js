@@ -109,7 +109,6 @@ function nodyError(data){
 
     function createComment(postID){
         let commentForms = $(`#comment-${postID}`);
-        console.log(commentForms);
         commentForms.submit(function(e){
             e.preventDefault();
             $.ajax({
@@ -117,7 +116,9 @@ function nodyError(data){
                 url: '/comments/create',
                 data: commentForms.serialize(),
                 success: function(data){
-                    console.log(data);
+                    let newComment = showComment(data.data.comment);
+                    $(`#post-comment-${postID}`).prepend(newComment);
+                    nodySuccess(data);
                 },
                 error: function(err){
                     console.log('Error occured while creating the comment')
@@ -129,13 +130,13 @@ function nodyError(data){
     let showComment = function(comment){
         return $(`<li>
         <p> 
-                <small>
-                    <a href="/comments/destroy/?id=${comment._id}&userID=<%= post.user.id %>">X</a>
-                </small>
-            <%= comment.content %>
+            <small>
+                <a href="/comments/destroy/?id=${comment._id}&userID=${comment.post}">X</a>
+            </small>
+            ${comment.content}
             <br>
             <small>
-                <%= comment.user.name %>
+                ${comment.user.name}
             </small>
         </p>
     </li>`)
