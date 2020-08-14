@@ -33,6 +33,7 @@ function nodyError(data){
                     // Including noty
                     nodySuccess(data);
                     destroyPost($(' .delete-post-button', newPost));//Delete the post created using ajax
+                    createComment(data.data.post._id);
                 },error: function(err){
                     console.log("Error occured while sending data", err);
                 }
@@ -53,7 +54,7 @@ function nodyError(data){
             </small>
         </p>
         <div class="post-comments">
-            <form action="/comments/create" method="POST">
+            <form id="comment-${post._id}" action="/comments/create" method="POST">
                 <input type="text" name="content" placeholder="Type here to add Comment..." required>
                 <input type="hidden" name="post" value="${post._id}">
                 <input type="submit" value="Add Comment">
@@ -97,9 +98,18 @@ function nodyError(data){
     }
     destroy();
 };
+
+
+    /* Comment creating section using AJAX and JQUERY */
 {
-    function createComment(){
-        let commentForms = $('.new-comment-form');
+    let allPosts = $('.postDescriber');
+    for(let i of allPosts){
+        createComment($(i).prop('value'))
+    }
+
+    function createComment(postID){
+        let commentForms = $(`#comment-${postID}`);
+        console.log(commentForms);
         commentForms.submit(function(e){
             e.preventDefault();
             $.ajax({
@@ -130,5 +140,4 @@ function nodyError(data){
         </p>
     </li>`)
     }
-    // createComment();
 }
