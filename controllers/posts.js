@@ -8,11 +8,11 @@ module.exports.create = async function(req, res){
             content: req.body.content,
             user: req.user._id
         });
-
+        let populatedPost = await Post.findById(post.id).populate('user');
         if(req.xhr){
             return res.status(200).json({
                 data:{
-                    post: post
+                    post: populatedPost
                 },
                 message: "Post Published!"
             })

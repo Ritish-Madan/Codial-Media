@@ -26,6 +26,8 @@ We have used the **nodemon** in the project for easy editings and restart of ser
 5. Create Comments
 6. Secured session includes privilages for comments and posts. Yet they are global, updating the friends feature super soon.
 7. Relational DataBases.
-
+8. Update the Profile.
+9. Upload the files (Profile Picture) using Multer
+10. Access other profiles from homepage.
 
 **Note:- The styles have not been added in this version yet. Will be updating the same with cool styles and animations super soon**

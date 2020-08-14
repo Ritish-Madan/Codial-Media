@@ -18,7 +18,6 @@ function nodyError(data){
 }
 {
     let postForm = $('#newPostForm');
-    console.log();
     function createPost(){
         let postForm = $('#newPostForm');
         postForm.submit(function(event){
@@ -28,7 +27,6 @@ function nodyError(data){
                 url: '/posts/create',
                 data: postForm.serialize(),
                 success: function(data){
-                    console.log(data.message);
                     let newPost = showPostDom(data.data.post);
                     $('#show-posts>ul').prepend(newPost)
                     postForm[0][0].value = ''
@@ -99,3 +97,38 @@ function nodyError(data){
     }
     destroy();
 };
+{
+    function createComment(){
+        let commentForms = $('.new-comment-form');
+        commentForms.submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: '/comments/create',
+                data: commentForms.serialize(),
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(err){
+                    console.log('Error occured while creating the comment')
+                }
+            })
+        })
+    }
+
+    let showComment = function(comment){
+        return $(`<li>
+        <p> 
+                <small>
+                    <a href="/comments/destroy/?id=${comment._id}&userID=<%= post.user.id %>">X</a>
+                </small>
+            <%= comment.content %>
+            <br>
+            <small>
+                <%= comment.user.name %>
+            </small>
+        </p>
+    </li>`)
+    }
+    // createComment();
+}

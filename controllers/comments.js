@@ -12,6 +12,16 @@ module.exports.create = async function(req, res){
         });
             post.comments.push(comment);
             post.save(); // We need to tell the DB to save the update we did. Else won't be saved.
+
+            if(req.xhr){
+                return res.status(200).json({
+                    data:{
+                        comment: comment
+                    },
+                    message: 'Comment Created Sucessfully!'
+                })
+            }
+            
             return res.redirect('back');
         }else{
             console.log('Invalid Post');
@@ -46,29 +56,21 @@ module.exports.destroy = async function(req, res){
         return;
     }
 };
-module.exports.create = function(req, res){
-    Post.findById(req.body.post, function(err, post){
-        if(err){
-            console.log("Error occured during search!!!", err);
-            return res.redirect('back');
-        }
-        if(post){
-            Comment.create({
-                content: req.body.content,
-                post: req.body.post, // We could have done the post._id as we have found the post.
-                user: req.user._id
-            }, function(err, comment){
-                // handle error
-                if(err){return console.log('Error occured while creting the post');}
-
-                post.comments.push(comment);
-                post.save(); // We need to tell the DB to save the update we did. Else won't be saved.
-                return res.redirect('back');
-            });
-        }
-        else{
-            console.log('Invalid Post');
-            return res.redirect('back');
-        }
-    });
-}
+// module.exports.create = async function(req, res){
+//     let post = await Post.findById(req.body.post);
+//     if(post){
+//         let comment = await Comment.create({
+//                 content: req.body.content,
+//                 post: req.body.post, // We could have done the post._id as we have found the post.
+//                 user: req.user._id
+//             })
+//         post.comments.push(comment);
+//         post.save(); // We need to tell the DB to save the update we did. Else won't be saved.
+//         // XHR request call
+        
+//         return res.redirect('back');
+//         }else{
+//             console.log('Invalid Post');
+//             return res.redirect('back');
+//         }
+// }

@@ -12,7 +12,6 @@ module.exports.home = function(req, res){
         path: 'comments',
         populate:{
             path: 'user',
-            path: 'user'
         }
     })
     .exec(function(err, posts){
