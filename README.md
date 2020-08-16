@@ -16,6 +16,16 @@ In this project, we have connected the MongoDB with mongoose, for easy operation
 
 We have used the **nodemon** in the project for easy editings and restart of server. The nodemon has already been linked to the **index.js** to run the server easily with a single command. just type `npm run server` in the terminal and the server will be started. Still if you wish not to use the nodemon. You can also start the server with `node ./index.js` and you will be good to go. Each time you make the changes in the server, or JS file you will need to restart the server if you use `node ./index.js`. You can automate the restart with the use of nodemon by using `npm run server`.
 
+**Using APIs to view and delete the posts**
+
+In the porject we have built the APIs to control the Post Activities. We can View the posts we have currently and have used JWT authorization to delete the posts. The User who created the post can only delete the posts. 
+
+*Note :- As of now we are not using any framework like Angular, so to support the same we used the postman to get the bearer tocken and create the delete and get requests.*
+
+Postman is a good tool to support the APIs if you do not have the framework yet used into the porject. 
+You can download the postman easily from: **https://www.postman.com**
+
+Once Installed you just need to register the same, and there will be a Postman beginning tutorial to get started. 
 
 **Features present as of now :-**
 
@@ -29,5 +39,6 @@ We have used the **nodemon** in the project for easy editings and restart of ser
 8. Update the Profile.
 9. Upload the files (Profile Picture) using Multer
 10. Access other profiles from homepage.
+11. Delete and view Posts using API
 
 **Note:- The styles have not been added in this version yet. Will be updating the same with cool styles and animations super soon**
