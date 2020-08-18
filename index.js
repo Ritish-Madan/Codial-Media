@@ -23,6 +23,7 @@ const session = require('express-session');
 const passport = require('passport')
 const passportLocal = require('./config/passport-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
+const passportGoogle = require('./config/passport-google-oauth');
 
 // Connect mongo to transfer the cookies to DataBase
 const MongoStore = require('connect-mongo')(session);
