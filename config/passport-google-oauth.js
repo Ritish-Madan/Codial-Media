@@ -17,9 +17,6 @@ passport.use(new GoogleStrategy({
         User.findOne({email: profile.emails[0].value}).exec(function(err, user){
             if(err){return console.log('OAuth (Google) error occurred', err);}
 
-            // testing codes
-            console.log(accessToken, refreshToken);
-            console.log(profile);
             // If the user already exists or logged in with the OAuth before
             if(user){
                 return done(null, user);

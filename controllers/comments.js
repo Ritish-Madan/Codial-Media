@@ -1,5 +1,6 @@
 const Comment = require('../schema/comments');
 const Post = require('../schema/posts');
+const commentMailer = require('../mailers/comment_mailer');
 
 module.exports.create = async function(req, res){
     try{
@@ -14,6 +15,9 @@ module.exports.create = async function(req, res){
             post.save(); // We need to tell the DB to save the update we did. Else won't be saved.
 
             let populatedComment = await Comment.findById(comment._id).populate('user');
+            // Passing the populated comment details to Comment Mailer
+            commentMailer.newComment(populatedComment);
+
             if(req.xhr){
                 return res.status(200).json({
                     data:{
