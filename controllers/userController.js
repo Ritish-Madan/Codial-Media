@@ -4,6 +4,10 @@ issues for users and might get at potential risks.
 -----------------------------------------------------------------------------------------------------------*/
 // Importing user Schema
 const User = require('../schema/userSchema')
+const forgetPasswordSchema = require('../schema/password_reset');
+const crypto = require('crypto');
+const forgot = require('../mailers/forgot_password');
+const { exception } = require('console');
 // profile page of other users
 module.exports.profile = function(req, res){
     User.findById(req.params.id, function(err, user){
@@ -82,4 +86,62 @@ module.exports.destroySession = function(req, res){
     req.logout(); // Logged out when we got the request to this route i.e. logout
     req.flash('success', 'You have Logged Out');
     return res.redirect('/'); // After logging out we redirected to our homepage
+}
+
+// Forget Password
+module.exports.forgetPage = function(req, res){
+    res.render('forget-password.ejs')
+}
+
+module.exports.resetPassword = async function(req,res){
+    let user = await User.findOne({email: req.body.email});
+    console.log(req.body.email)
+    if(user){
+        let newForget = await forgetPasswordSchema.create({
+            user: user.id,
+            token: crypto.randomBytes(20).toString('hex'),
+            isValid: true
+        })
+        let populatedForget = await forgetPasswordSchema.findById(newForget._id).populate('user');
+        
+        forgot.forgetmail(populatedForget)
+        req.flash('success', 'Check your mailbox');
+        return res.redirect('/');
+    }else{
+        req.flash('error','User Not Found!');
+        return res.redirect('/user/forget-password');
+    };
+};
+
+module.exports.newPassword = async function(req, res){
+    let changeRequest = await forgetPasswordSchema.findOne({token: req.query.token});
+    if(changeRequest.isValid){
+        res.render('new_password',{
+            token: changeRequest.token
+        });
+        return;
+    }else{
+        req.flash('error', 'Invalid Action');
+        res.redirect('/');
+        return;
+    }
+}
+
+module.exports.updatePassword = async function(req, res){
+    try{
+        let changeRequest = await forgetPasswordSchema.findOne({token: req.body.token});
+
+        if(req.body.password != req.body.confirm || (req.body.password).length < 1){
+            req.flash('error', 'Password did not match');
+            return res.redirect('/user/reset-password/?token=' + req.body.token);
+        }else{
+            let newPassword = await User.findByIdAndUpdate(changeRequest.user, {password: req.body.password});
+            changeRequest.isValid = false;
+            changeRequest.save();
+            return res.redirect('/');
+        }
+    }catch(err){
+        return console.log(err);
+
+    }
 }

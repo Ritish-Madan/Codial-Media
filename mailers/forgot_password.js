@@ -2,13 +2,13 @@ const nodemailer = require('../config/nodemailer');
 
 
 // Exporting method
-exports.newComment = (comment) => {
-    let htmlData = nodemailer.renderTemplate({comment: comment}, '/comments/new_comments.ejs');
+exports.forgetmail = (forgetDetails) => {
+    let htmlData = nodemailer.renderTemplate({details: forgetDetails}, '/forget Password/forget_password.ejs');
 
     nodemailer.transporter.sendMail({
         from: 'contact.ritish@gmail.com',
-        to: comment.user.email,
-        subject: 'New Comment Published!',
+        to: forgetDetails.user.email,
+        subject: 'Reset Password',
         html: htmlData
     }, (err, info) => {
         if(err){return console.log('Error in sending Email', err);}
