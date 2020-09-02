@@ -136,9 +136,16 @@ module.exports.updatePassword = async function(req, res){
             return res.redirect('/user/reset-password/?token=' + req.body.token);
         }else{
             let newPassword = await User.findByIdAndUpdate(changeRequest.user, {password: req.body.password});
+            let user = await User.findById(changeRequest.user);
             changeRequest.isValid = false;
-            changeRequest.save();
-            return res.redirect('/');
+            changeRequest.save(function(err){
+                req.login(user, function(err){
+                    if(err){return err;}
+
+                    return res.redirect('/')
+                })
+            });
+            // return res.redirect('/');
         }
     }catch(err){
         return console.log(err);

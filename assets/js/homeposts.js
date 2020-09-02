@@ -52,6 +52,9 @@ function nodyError(data){
             <small>
             ${post.user.name}
             </small>
+            <br>
+            <span>0 Likes</span>
+            <a href="/likes/toggle/?id=${post._id}&type=Post">Like</a>
         </p>
         <div class="post-comments">
             <form id="comment-${post._id}" action="/comments/create" method="POST">
@@ -138,6 +141,9 @@ function nodyError(data){
             <small>
                 ${comment.user.name}
             </small>
+            <br>
+            <span>0 Likes</span>
+            <a href="/likes/toggle/?id=${comment._id}&type=Post">Like</a>
         </p>
     </li>`)
     }

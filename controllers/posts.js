@@ -1,6 +1,7 @@
 // Importing Post Schema
 const Post = require('../schema/posts');
-const Comment = require('../schema/comments')
+const Comment = require('../schema/comments');
+const Like = require('../schema/likes');
 
 module.exports.create = async function(req, res){
     try{
@@ -32,6 +33,7 @@ module.exports.destroy = async function(req, res){
         let post = await Post.findById(req.params.id);
         if(post.user == req.user.id){
             post.remove();
+            await Like.deleteMany({likeable: post._id, onModel: 'Post'})
             await Comment.deleteMany({post: post.id});
 
             if(req.xhr){

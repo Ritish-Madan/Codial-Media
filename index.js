@@ -35,6 +35,13 @@ const sassMiddleware = require('node-sass-middleware')
 const flash = require('connect-flash');
 const customMware = require('./config/Middlewares');
 
+// Socket.io Setup
+const chatServer = require('http').createServer(app);
+const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
+chatServer.listen(5000, () => {
+    console.log('Socket server is running');
+})
+
 // Middlewares
  app.use(sassMiddleware({
     src: './assets/scss',
