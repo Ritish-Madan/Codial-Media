@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon ./index.js",
-    "prod_start": "SET NODE_ENV=production & node index.js"
+    "prod_start": "SET NODE_ENV=production & node index.js",
+    "prod_start_ubuntu": "NODE_ENV=production node index.js"
   },
   "author": "Ritish",
   "license": "ISC",
