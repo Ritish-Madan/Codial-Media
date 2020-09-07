@@ -43,7 +43,7 @@ const customMware = require('./config/Middlewares');
 // Socket.io Setup
 const chatServer = require('http').createServer(app);
 const chatSockets = require('./config/chat_socket').chatSockets(chatServer);
-chatServer.listen(5000, () => {
+chatServer.listen(5001, () => {
     console.log('Socket server is running');
 })
 
