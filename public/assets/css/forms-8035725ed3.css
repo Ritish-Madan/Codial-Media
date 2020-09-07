@@ -1,0 +1,11 @@
+form {
+  width: 100%; }
+  form p {
+    text-align: center; }
+  form input {
+    display: block;
+    padding: 6px;
+    margin: auto;
+    margin-top: 4px; }
+  form .submit-button {
+    cursor: pointer; }

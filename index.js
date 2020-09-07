@@ -4,6 +4,11 @@ const app = express();
 
 // Connectting to Data base
 const db = require('./config/database');
+// Enviroment file
+const env = require('./config/enviroment');
+// Setting up morgan
+const logger = require('morgan');
+require('./config/view-helpers')(app);
 
 // Setting up templete engine to ejs
 app.set('view engine', 'ejs');
@@ -42,22 +47,24 @@ chatServer.listen(5000, () => {
     console.log('Socket server is running');
 })
 
+const path = require('path');
 // Middlewares
  app.use(sassMiddleware({
-    src: './assets/scss',
-    dest: './assets/css',
+    src: path.join(__dirname, env.asset_path, 'scss'),
+    dest: path.join(__dirname, env.asset_path, 'css'),
     debug: false,
     outputStyle: 'extended',
     prefix:  '/css'
 }));
+app.use(logger(env.morgan.mode, env.morgan.options))
 app.use(express.urlencoded());
 app.use(cookieParser());
-app.use(express.static('assets'));
+app.use(express.static(env.asset_path));
 app.use(layout);
 
 app.use(session({
     name: "user_id",
-    secret: 'blahblah', //TODO Change this during deployment
+    secret: env.session_cookie_key, //TODO Change this during deployment
     saveUninitialized: false,
     resave: false,
     cookie:{
